@@ -20,3 +20,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::post('login', 'API\AuthController@login')->name('login');
 Route::post('register', 'API\AuthController@register')->name('register');
+
+Route::group(['middleware' => ['auth:sanctum', 'verified']], function () {
+    Route::get('profile', 'API\UserController@show')->name('users.profile.show');
+});

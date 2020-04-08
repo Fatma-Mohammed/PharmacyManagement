@@ -29,3 +29,10 @@ Route::get('/useraddresses/{address}', 'UserAddressController@show')->name('user
 Route::get('/useraddresses/{address}/destroy', 'UserAddressController@destroy')->name('useraddresses.destroy');
 Route::get('/useraddresses/{address}/edit', 'UserAddressController@edit')->name('useraddresses.edit');
 Route::get('/useraddresses/{address}/update', 'UserAddressController@update')->name('useraddresses.update');
+Route::get('/orders', 'OrderController@index')->name('orders.index');
+Route::get('/orders/create','OrderController@create')->name('orders.create');
+Route::post('/orders','OrderController@store')->name('orders.store');
+Route::get('/orders/{order}','OrderController@show')->name('orders.show');
+Route::get('/orders/{order}/destroy','OrderController@destroy')->name('orders.destroy');
+Route::get('/orders/{order}/edit','OrderController@edit')->name('orders.edit');
+Route::get('/orders/{order}/update','OrderController@update')->name('orders.update');

@@ -8,12 +8,13 @@ class Order extends Model
 {
     //
     protected $fillable = [
-        'user',
-        'doctor',
+        'user_id',
+        'doctor_id',
         'is_isured',
         'creator_type',
         'status',
-        'assigned_pharmacy'
+        'pharmacy_id',
+        'price'
     ];
     public function user()
     {

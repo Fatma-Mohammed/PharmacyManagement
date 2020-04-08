@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Order;
+use App\User;
 
 class OrderController extends Controller
 {
@@ -58,7 +59,8 @@ class OrderController extends Controller
             "is_isured"=>$request->is_isured,
             "creator_type"=>$request->creator_type,
             "status"=>$request->status,
-            "pharmacy_id"=>$request->pharmacy_id
+            "pharmacy_id"=>$request->pharmacy_id,
+            'price'=>$request->doctor_id*$request->user_id
 
         ]);
        

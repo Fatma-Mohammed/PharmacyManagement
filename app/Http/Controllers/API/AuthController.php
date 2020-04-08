@@ -37,6 +37,7 @@ class AuthController extends Controller
 
     public function register(RegisterationRequest $request)
     {
+		$avatar_path = $request->file('avatar_img')->store('images/avatars');
 
 		$user = User::create([
 			'name' => $request->name,
@@ -45,7 +46,9 @@ class AuthController extends Controller
 			'gender' => $request->gender,
 			'date_of_birth' => $request->date_of_birth,
 			'mobile_number' => $request->mobile_number,
-			'national_id' => $request->national_id
+			'national_id' => $request->national_id,
+			'avatar_img' => $avatar_path,
+
 		]);
 
 		event(new Registered($user));

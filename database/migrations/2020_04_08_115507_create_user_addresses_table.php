@@ -15,12 +15,12 @@ class CreateUserAddressesTable extends Migration
     {
         Schema::create('user_addresses', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('area_id');
+            $table->string('area_id');
             $table->string('street_name');
-            $table->integer('building_number');
-            $table->integer('floor_number');
-            $table->integer('falt_number');
-            $table->boolean('is_main');			
+            $table->string('building_number');
+            $table->string('floor_number');
+            $table->string('falt_number');
+            $table->string('is_main');			
             $table->timestamps();
         });
     }

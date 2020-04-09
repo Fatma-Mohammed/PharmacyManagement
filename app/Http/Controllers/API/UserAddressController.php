@@ -1,41 +1,19 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\API;
 
-use App\UserAddress;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\UserAddress;
 
 class UserAddressController extends Controller
 {
     public function index()
     {
-        $useraddresses = UserAddress::all();
+        
 
-        return view('useraddresses.index', [
-            'useraddresses' => $useraddresses,
-        ]);
+        return  UserAddress::all();
     }
-
-    public function create()
-    {
-        return view('useraddresses.create');
-
-    }
-
-    public function store(Request $request)
-    {
-        $request = request();
-        UserAddress::create([
-            'area_id' => $request->area_id,
-            'street_name' => $request->street_name,
-            'building_number' => $request->building_number,
-            'floor_number' => $request->floor_number,
-            'falt_number' => $request->falt_number,
-            'is_main' => $request->is_main,
-        ]);
-        return redirect()->route('useraddresses.index');
-    }
-
     public function show()
     {
         $request = request();
@@ -43,22 +21,23 @@ class UserAddressController extends Controller
         // $userId=$request->user;
 
         $useraddress = UserAddress::find($addressId);
-        // $user=Order::find($userId);
-        return view('useraddresses.show', [
-            'useraddress' => $useraddress,
-            // 'user'=>$user
-        ]);
+    
+        return  $useraddress;
 
     }
 
-    public function edit()
+    public function store(Request $request)
     {
         $request = request();
-        $addressId = $request->useraddress;
-        $useraddress = UserAddress::find($addressId);
-        return view('useraddresses.edit', [
-            'useraddress' => $useraddress,
+       return UserAddress::create([
+            'area_id' => $request->area_id,
+            'street_name' => $request->street_name,
+            'building_number' => $request->building_number,
+            'floor_number' => $request->floor_number,
+            'falt_number' => $request->falt_number,
+            'is_main' => $request->is_main,
         ]);
+       
     }
 
     public function update()
@@ -74,9 +53,11 @@ class UserAddressController extends Controller
         $useraddress->is_main = $request->is_main;
 
         $useraddress->save();
-        return redirect()->route('useraddresses.index');
+        return $useraddress;
 
     }
+
+
 
     public function destroy()
     {
@@ -88,7 +69,9 @@ class UserAddressController extends Controller
         // $post->delete();
         UserAddress::destroy($addressId);
 
-        return redirect()->route('useraddresses.index');
+        return  UserAddress::all();
 
     }
+
+
 }

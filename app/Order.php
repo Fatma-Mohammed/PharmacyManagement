@@ -8,13 +8,14 @@ class Order extends Model
 {
     //
     protected $fillable = [
-        'user',
-        'doctor',
+        'user_id',
+        'doctor_id',
         'is_isured',
         'creator_type',
         'status',
         'assigned_pharmacy',
-        'delivering_address_id'
+        'delivering_address_id',
+        
     ];
     public function user()
     {
@@ -51,5 +52,12 @@ class Order extends Model
         $pharmacy= Pharmacy::find($this->pharamcy_id);   
         $pharmacy['address']=$pharmacy->area->name.", ".$pharmacy->area->address;
         return $pharmacy;
+    }
+    public function medicine()
+
+    {
+
+        return $this->belongsToMany(Medicine::class, 'order_medicine');
+
     }
 }

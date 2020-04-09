@@ -1,8 +1,5 @@
 
-@extends('layouts/app')
 
-
-@section('content')
 
 <!DOCTYPE html>
 <html lang="en">
@@ -36,6 +33,14 @@
     <select name="user_id" class="form-control ">
         @foreach($users as $user)  
           <option value="{{$user->id}}">{{$user->name}}</option>
+        @endforeach
+        </select>
+  </div>
+  <div class="form-group">
+    <label for="exampleFormControlSelect1">MEDICINE</label>
+  <select name="medicine_id" class="form-control ">
+        @foreach($medicines as $medicine)  
+          <option value="{{$medicine->id}}">{{$medicine->name}}</option>
         @endforeach
         </select>
   </div>
@@ -82,7 +87,3 @@
     </script>
 </body>
 </html>
-<<<<<<< HEAD
-@endsection
-=======
->>>>>>> eff5ba0d33c177321d28a6e33e3453c5e6925799

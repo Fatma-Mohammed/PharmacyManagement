@@ -32,9 +32,6 @@ Route::get('/medicines/delete/{medicine}', 'MedicineController@destroy')-> name(
 
 
 
-
-
-
 Route::get('/orders', 'OrderController@index')->name('orders.index');
 Route::get('/orders/create','OrderController@create')->name('orders.create');
 Route::post('/orders','OrderController@store')->name('orders.store');

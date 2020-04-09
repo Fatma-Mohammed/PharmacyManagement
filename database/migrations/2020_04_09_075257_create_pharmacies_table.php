@@ -19,7 +19,7 @@ class CreatePharmaciesTable extends Migration
             $table->string('email')->unique();
             $table->string('password');
             $table->string('national_id')->unique();
-            $table->string('avatar_image');
+            $table->string('avatar_image')->default('default_avatar.jpg');
             $table->integer('priority');
             $table->integer('area_id');
             $table->softDeletes();

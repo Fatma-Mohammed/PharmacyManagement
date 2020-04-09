@@ -29,6 +29,16 @@ Route::get('/useraddresses/{useraddress}', 'UserAddressController@show')->name('
 Route::get('/useraddresses/{useraddress}/destroy', 'UserAddressController@destroy')->name('useraddresses.destroy');
 Route::get('/useraddresses/{useraddress}/edit', 'UserAddressController@edit')->name('useraddresses.edit');
 Route::get('/useraddresses/{useraddress}/update', 'UserAddressController@update')->name('useraddresses.update');
+Route::get('/medicines', 'MedicineController@index')->name('medicine.index');
+Route::get('/medicines/create', 'MedicineController@create')->name('medicine.create');
+Route::post('/medicines', 'MedicineController@store')-> name('medicine.store');
+Route::get('/medicines/{medicine}', 'MedicineController@show')-> name('medicine.show');
+Route::get('/medicines/edit/{medicine}', 'MedicineController@edit')-> name('medicine.edit');
+Route::put('/medicines/{medicine}' , 'MedicineController@update')-> name('medicine.update');
+Route::get('/medicines/delete/{medicine}', 'MedicineController@destroy')-> name('medicine.delete');
+
+
+
 
 Route::get('/orders', 'OrderController@index')->name('orders.index');
 Route::get('/orders/create', 'OrderController@create')->name('orders.create');

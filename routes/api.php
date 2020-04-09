@@ -29,3 +29,9 @@ Route::get('/useraddresses/{useraddress}', 'API\UserAddressController@show')->na
 Route::post('/useraddresses', 'API\UserAddressController@store')->name('useraddresses.store');
 Route::post('/useraddresses/{useraddress}/update', 'API\UserAddressController@update')->name('useraddresses.update');
 Route::delete('/useraddresses/{useraddress}/destroy', 'API\UserAddressController@destroy')->name('useraddresses.destroy');
+Route::group(['middleware' => ['auth:sanctum', 'verified']], function () {
+    Route::get('profile', 'API\UserController@show')->name('user.profile.show');
+    Route::put('profile', 'API\UserController@update')->name('user.profile.update');
+    Route::resource('orders', 'API\OrderController')->only(['index']);
+
+});

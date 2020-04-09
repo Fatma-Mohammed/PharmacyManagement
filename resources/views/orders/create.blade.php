@@ -1,3 +1,6 @@
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -30,6 +33,14 @@
     <select name="user_id" class="form-control ">
         @foreach($users as $user)  
           <option value="{{$user->id}}">{{$user->name}}</option>
+        @endforeach
+        </select>
+  </div>
+  <div class="form-group">
+    <label for="exampleFormControlSelect1">MEDICINE</label>
+  <select name="medicine_id" class="form-control ">
+        @foreach($medicines as $medicine)  
+          <option value="{{$medicine->id}}">{{$medicine->name}}</option>
         @endforeach
         </select>
   </div>

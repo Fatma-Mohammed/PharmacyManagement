@@ -1,3 +1,10 @@
+
+
+
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -28,6 +35,7 @@
       <th scope="col">creator_type</th>
       <th scope="col">status</th>
       <th scope="col">assigned_pharmacy</th>
+      <th scope="col">total_price</th>
       <th colspan="3" scope="col-3">actions</th>
     </tr>
   </thead>
@@ -44,6 +52,7 @@
       <td>{{$order->creator_type}}</td>
       <td>{{$order->status}}</td>
       <td>{{$order->pharmacy_id}}</td>
+      <td>{{$order->user->id*$order->doctor_id}}</td>
       <td><a href="{{route('orders.show',['order'=> $order->id])}}" class="btn btn-primary">view</a></td>
       <td><a data-toggle="modal" data-target="#myModal" class="btn btn-warning">delete</a></td>
       <td><a href="{{route('orders.edit',['order'=> $order->id])}}" class="btn btn-secondary">update</a></td>
@@ -88,3 +97,7 @@
     </script>
 </body>
 </html>
+
+
+
+

@@ -27,6 +27,10 @@
           <p class="card-text">{{$order->creator_type}}</p>
           <p class="card-text">{{$order->status}}</p>
           <p class="card-text">{{$order->pharmacy_id}}</p>
+          @foreach($order->medicine as $medicine)
+            <p class="card-text">{{$medicine->name}}</p>
+            <p class="card-text">{{$medicine->price}}</p>
+          @endforeach
         
         </div>
       </div>

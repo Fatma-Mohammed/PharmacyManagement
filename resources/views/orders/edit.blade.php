@@ -50,7 +50,16 @@
     <label for="exampleFormControlTextarea1">creator_type</label>
     <textarea class="form-control" name="creator_type" rows="3">{{$order->creator_type}}</textarea>
   </div>
-
+  @foreach($order->medicine as $medicine)
+  <div class="form-group">
+    <label for="exampleFormControlTextarea1">medicine_name</label>
+    <textarea class="form-control" name="medicine_name" rows="3">{{$medicine->name}}</textarea>
+  </div>
+  <div class="form-group">
+    <label for="exampleFormControlTextarea1">medicine_price</label>
+    <textarea class="form-control" name="medicine_price" rows="3">{{$medicine->price}}</textarea>
+  </div>
+ @endforeach
 
 
 

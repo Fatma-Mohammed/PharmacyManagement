@@ -13,7 +13,7 @@ class OrderController extends Controller
     public function index(){
         $order = Order::find(1);
         //$medicine=$order->medicine;	
-        //  dd($order->medicine[0]->name);
+        //dd($order->medicine[0]->name);
      
     
         $orders=Order::all();
@@ -24,25 +24,25 @@ class OrderController extends Controller
     public function show(){
         $request = request();
         $orderId = $request->order;
-        // $userId=$request->user;
-
+        $userId=$request->user;
+        // $medicineId=$request->medicine;
 
 
         $order=Order::find($orderId);
-        // $user=Order::find($userId);
+         $user=User::find($userId);
+
+        //  $medicine=Medicine::find($medicineId);
+
         return view('orders/show',[
-            'order'=>$order
-            // 'user'=>$user
+            'order'=>$order,
+             'user'=>$user,
+            //  'medicine'=>$medicine
         ]);
         
     }
     public function destroy(){
         $request = request();
         $orderId = $request->order;
-
-        // $post = Post::find($postId);
-
-        // $post->delete();
         Order::destroy($orderId);
 
         return redirect()->route('orders.index');
@@ -61,23 +61,25 @@ class OrderController extends Controller
         $request=request();
     
     //    dd($request);
-        Order::create([
+        $order=Order::create([
             "user_id"=> $request->user_id,
             "doctor_id"=> $request->doctor_id,
             "is_isured"=>$request->is_isured,
             "creator_type"=>$request->creator_type,
             "status"=>$request->status,
-            "pharmacy_id"=>$request->pharmacy_id,
-            'price'=>$request->doctor_id*$request->user_id
-
+            "pharmacy_id"=>$request->pharmacy_id   
         ]);
+        
+        $medicine=Medicine::find($request->medicine_id);
+        
+        $order->medicine()->attach($medicine);
        
         return redirect()->route('orders.index');
     }
     public function edit(){
         $request = request();
         $orderId = $request->order;
-        $order=Order::find($orderId);
+        $order=Order::find($orderId);    
         return view('orders/edit',[
             'order'=>$order
         ]);

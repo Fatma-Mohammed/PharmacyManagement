@@ -46,6 +46,16 @@ class User extends Authenticatable implements MustVerifyEmail
         'email_verified_at' => 'datetime',
     ];
 
+    public function addresses()
+    {
+        return $this->hasMany('App\Address');
+    }
+
+    public function orders()
+    {
+        return $this->hasMany('App\Order','order_user_id');
+    }
+
     public function getAvatarAttribute()
 	{
 		$path = $this->avatar_img;

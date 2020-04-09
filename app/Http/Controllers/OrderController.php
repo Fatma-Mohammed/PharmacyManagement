@@ -5,13 +5,19 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Order;
 use App\User;
+use App\Medicine;
 
 class OrderController extends Controller
 {
     //
     public function index(){
+        $order = Order::find(1);
+        //$medicine=$order->medicine;	
+        //  dd($order->medicine[0]->name);
+     
+    
         $orders=Order::all();
-        return view('index',[
+        return view('orders/index',[
             'orders'=>$orders
         ]);
     }
@@ -24,7 +30,7 @@ class OrderController extends Controller
 
         $order=Order::find($orderId);
         // $user=Order::find($userId);
-        return view('show',[
+        return view('orders/show',[
             'order'=>$order
             // 'user'=>$user
         ]);
@@ -44,9 +50,11 @@ class OrderController extends Controller
     }
     public function create(){
          $users = User::all();
-         
+         $medicines = Medicine::all();
+        //  dd($medicines);
+        // dd($medicines[0]->name);
        
-         return view('create',['users'=>$users]);
+         return view('orders/create',['users'=>$users,'medicines'=>$medicines ]);
     
     }
     public function store(){
@@ -70,7 +78,7 @@ class OrderController extends Controller
         $request = request();
         $orderId = $request->order;
         $order=Order::find($orderId);
-        return view('edit',[
+        return view('orders/edit',[
             'order'=>$order
         ]);
     }

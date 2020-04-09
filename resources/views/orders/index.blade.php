@@ -1,6 +1,4 @@
-@extends('layouts/app')
 
-@section('content')
 
 
 
@@ -99,7 +97,7 @@
     </script>
 </body>
 </html>
-<<<<<<< HEAD
-@endsection
-=======
->>>>>>> eff5ba0d33c177321d28a6e33e3453c5e6925799
+
+
+
+

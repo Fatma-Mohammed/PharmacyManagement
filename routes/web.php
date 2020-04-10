@@ -13,9 +13,12 @@ use App\Mail\MissedMail;
 |
  */
 
-Route::get('/', function () { return new MissedMail;})->name('home');
+Route::get('/', function () {
+    return view('welcome');
+});
 
 Auth::routes(['verify' => true]);
+Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
@@ -38,24 +41,9 @@ Route::get('/medicines/delete/{medicine}', 'MedicineController@destroy')-> name(
 
 
 Route::get('/orders', 'OrderController@index')->name('orders.index');
-
-Route::get('/orders/create','OrderController@create')->name('orders.create');
-Route::post('/orders','OrderController@store')->name('orders.store');
-Route::get('/orders/{order}/destroy','OrderController@destroy')->name('orders.destroy');
-Route::get('/orders/{order}/edit','OrderController@edit')->name('orders.edit');
-Route::get('/orders/{order}/update','OrderController@update')->name('orders.update');
-Route::get('/orders/{order}/{user}','OrderController@show')->name('orders.show');
-
-
-
-// Route::get('/orders/create', 'OrderController@create')->name('orders.create');
-// Route::post('/orders', 'OrderController@store')->name('orders.store');
-// Route::get('/orders/{order}', 'OrderController@show')->name('orders.show');
-// Route::get('/orders/{order}/destroy', 'OrderController@destroy')->name('orders.destroy');
-// Route::get('/orders/{order}/edit', 'OrderController@edit')->name('orders.edit');
-// Route::get('/orders/{order}/update', 'OrderController@update')->name('orders.update');
-
-
-
-Route::resource('pharmacies', 'PharmacyController');
-Route::resource('doctors', 'DoctorController');
+Route::get('/orders/create', 'OrderController@create')->name('orders.create');
+Route::post('/orders', 'OrderController@store')->name('orders.store');
+Route::get('/orders/{order}', 'OrderController@show')->name('orders.show');
+Route::get('/orders/{order}/destroy', 'OrderController@destroy')->name('orders.destroy');
+Route::get('/orders/{order}/edit', 'OrderController@edit')->name('orders.edit');
+Route::get('/orders/{order}/update', 'OrderController@update')->name('orders.update');

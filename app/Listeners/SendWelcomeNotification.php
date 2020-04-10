@@ -5,6 +5,8 @@ namespace App\Listeners;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 use App\Notifications\GreetUser;
+use Illuminate\Notifications\Notifiable;
+
 use Illuminate\Auth\Events\Verified;
 class SendWelcomeNotification
 {

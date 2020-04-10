@@ -7,6 +7,8 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Notifications\Notifiable;
+
 class MissedMail extends Mailable
 {
     use Queueable, SerializesModels;
@@ -28,6 +30,6 @@ class MissedMail extends Mailable
      */
     public function build()
     {
-        return $this->notify(new not_logged_for_month);
+        return $this->send(new not_logged_for_month);
     }
 }

@@ -61,9 +61,9 @@
         <!-- <input value="{{$medicine->id}}">{{$medicine->name}}> -->
         <label for="exampleFormControlInput1">quantity</label>
         <input type="text" class="form-control" name="quantity" id="quantity"> 
-        <input type='button' name='calculate' id='calculate' value="calculate">
-        <label for="exampleFormControlInput1">total_price</label>
-        <input type="text" class="form-control" name="total_price"> 
+        <!-- <input type='button' name='calculate' id='calculate' value="calculate"> -->
+        <!-- <label for="exampleFormControlInput1">total_price</label>
+        <input type="text" class="form-control" name="total_price">  -->
         
   </div>
   <div class="form-group">
@@ -74,14 +74,14 @@
         @endforeach
         </select>
   </div>
-  <div class="form-group">
+  <!-- <div class="form-group">
     <label for="exampleFormControlSelect1">ASSIGINED_PHARMACY</label>
     <select name="pharmacy_id" class="form-control ">
         @foreach($pharmacys as $pharmacy)  
           <option value="{{$pharmacy->id}}">{{$pharmacy->name}}</option>
         @endforeach
         </select>
-  </div>
+  </div> -->
     <label for="exampleFormControlTextarea1">status</label>
     <input   class="form-control" name="status" type="text"/>
   </div>
@@ -135,7 +135,7 @@
 
 
 @section('addional_js_includes')
-<script src="/assets/js/calculate.js"></script>
+
 @endsection
 
 

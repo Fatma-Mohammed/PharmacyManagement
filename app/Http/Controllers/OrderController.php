@@ -85,7 +85,9 @@ class OrderController extends Controller
 
        
        
-
+        $area = Address::find($request->deliviring_address )->area->id;
+        $priority = Pharmacy::where('area_id',$area)->max('priority');
+        $pharmacy = Pharmacy::where('priority',$priority)->first();
         $orders=Order::create([
 
             "user_id"=> $request->user_id,
@@ -93,7 +95,8 @@ class OrderController extends Controller
             "is_isured"=>$request->is_isured,
             "creator_type"=>$request->creator_type,
             "status"=>$request->status,
-            "pharmacy_id"=>$request->pharmacy_id ,
+            // "pharmacy_id"=>$request->pharmacy_id ,
+            'pharmacy_id' => $pharmacy->id ,   
             'delivering_address_id'=>$request->deliviring_address  
         ]);
         $request['order_id']=$orders->id;
@@ -109,11 +112,20 @@ class OrderController extends Controller
         return redirect()->route('orders.index');
     }
     public function edit(){
+        $users = User::all();
+        $doctors = Doctor::all();
+        $addresses = Address::all();
+         $pharmacys = Pharmacy::all();
+         $medicines = Medicine::all();
+       
         $request = request();
         $orderId = $request->order;
         $order=Order::find($orderId);    
         return view('orders/edit',[
-            'order'=>$order
+            'order'=>$order,
+            'doctors'=>$doctors,
+            'users'=>$users,'medicines'=>$medicines,
+            'pharmacys'=>$pharmacys,'addresses'=>$addresses
         ]);
     }
     public function update(){

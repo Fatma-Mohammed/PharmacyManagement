@@ -68,7 +68,7 @@
       <td>{{$order?$order->is_isured:""}}</td>
       <td>{{$order?$order->creator_type:""}}</td>
       <td>{{$order?$order->status:""}}</td>
-      <td>{{$order?$order->pharmacy_id:""}}</td>
+      <td>{{ $order->pharmacy ? $order->pharmacy->name : 'not exist'}}</td>
       
       <td><a href="{{route('orders.show',['order'=> $order->id,'user'=> $order->user ? $order->user->id : 'not exist'])}}" class="btn btn-primary">view</a></td>
       <td><a href="{{route('orders.edit',['order'=> $order->id])}}" class="btn btn-secondary">update</a></td>

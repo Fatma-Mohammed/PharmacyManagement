@@ -23,8 +23,13 @@ Route::post('register', 'API\AuthController@register')->name('register');
 Route::group(['middleware' => ['auth:sanctum', 'verified']], function () {
     Route::get('profile', 'API\UserController@show')->name('user.profile.show');
     Route::put('profile', 'API\UserController@update')->name('user.profile.update');
-    Route::resource('orders', 'API\OrderController')->only(['index', 'show', 'store','update']);
-    
+   
+   
+    Route::get('/orders', 'API\OrderController@index');
+    Route::get('/orders/{id}', 'API\OrderController@show');
+    Route::post('/orders', 'API\OrderController@store');
+    Route::put('/orders/{id}/update', 'API\OrderController@update');
+
   
     Route::get('/useraddresses', 'API\UserAddressController@index')->name('useraddresses.index');
     Route::get('/useraddresses/{useraddress}', 'API\UserAddressController@show')->name('useraddresses.show');

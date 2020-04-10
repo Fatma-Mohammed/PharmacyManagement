@@ -4,6 +4,9 @@ namespace App\Console\Commands;
 use App\DripEmailer;
 use App\User;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Mail;
+use App\Mai\MissedMail;
+use App\Mail\MissedMail as MailMissedMail;
 
 class SendEmails extends Command
 {
@@ -12,7 +15,7 @@ class SendEmails extends Command
      *
      * @var string
      */
-    protected $signature = 'email:send {user}';
+    protected $signature = 'notify:users';
 
     /**
      * The console command description.
@@ -36,8 +39,13 @@ class SendEmails extends Command
      *
      * @return mixed
      */
-    public function handle(DripEmailer $drip)
+    public function handle()
     {
-        $drip->send(User::find($this->argument('user')));
+        $Missed = User::where('last_login_date', '<=', new \DateTime('-1 months'))->get();
+
+        foreach ($Missed as $user) {
+
+            Mail::to($user->email)->send(new MailMissedMail);
+        }
     }
 }

@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Support\Str;
 use App\Http\Requests\RegisterationRequest;
+use DateTime;
 use Illuminate\Auth\Events\Registered;
 
 class AuthController extends Controller
@@ -31,7 +32,8 @@ class AuthController extends Controller
 		$token->update([
 			'token' => hash('sha256', $plainTextToken = Str::random(80))
 		]);
-
+		$user->last_login_date = now();
+		
 		return $plainTextToken;
     }
 

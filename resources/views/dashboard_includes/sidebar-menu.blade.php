@@ -69,8 +69,8 @@
 
                     <li><a><i class="fa fa-clone"></i> User Addresses <span class="fa fa-chevron-down"></span></a>
                         <ul class="nav child_menu">
-                            <li><a href="#">Sub Menu 1</a></li>
-                            <li><a href="#">Sub Menu 2</a></li>
+                            <li><a href="{{ route('useraddresses.index') }}">All Addresses</a></li>
+                            <li><a href="{{ route('useraddresses.create') }}">Create Address</a></li>
                         </ul>
                     </li>
 

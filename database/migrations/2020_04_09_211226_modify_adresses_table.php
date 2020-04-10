@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateOrderMedicineTable extends Migration
+class ModifyAdressesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,7 @@ class CreateOrderMedicineTable extends Migration
      */
     public function up()
     {
-        Schema::create('order_medicine', function (Blueprint $table) {
-           
-            $table->unsignedBigInteger('order_id')->nullable();
-            $table->unsignedBigInteger('medicine_id')->nullable();
-        });
+        Schema::rename('adresses', 'addresses');
     }
 
     /**
@@ -27,6 +23,8 @@ class CreateOrderMedicineTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('order_medicine');
+        Schema::table('adresses', function (Blueprint $table) {
+            //
+        });
     }
 }

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class DropPriceColFromOrdersTable extends Migration
+class ModifyOrdersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,7 +14,10 @@ class DropPriceColFromOrdersTable extends Migration
     public function up()
     {
         Schema::table('orders', function (Blueprint $table) {
-            //
+            $table->unsignedBigInteger('pharamcy_id')->nullable();
+            $table->unsignedBigInteger('delivering_address_id');
+            $table->unsignedBigInteger('total_price')->nullable();
+
         });
     }
 
@@ -27,7 +30,6 @@ class DropPriceColFromOrdersTable extends Migration
     {
         Schema::table('orders', function (Blueprint $table) {
             //
-            Schema::drop('price');
         });
     }
 }

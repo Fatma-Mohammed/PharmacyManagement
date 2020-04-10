@@ -50,7 +50,7 @@
     <label for="exampleFormControlTextarea1">creator_type</label>
     <textarea class="form-control" name="creator_type" rows="3">{{$order->creator_type}}</textarea>
   </div>
-  @foreach($order->medicine as $medicine)
+  @foreach($order->medicines as $medicine)
   <div class="form-group">
     <label for="exampleFormControlTextarea1">medicine_name</label>
     <textarea class="form-control" name="medicine_name" rows="3">{{$medicine->name}}</textarea>
@@ -61,14 +61,11 @@
   </div>
  @endforeach
 
-
-
-
   <div class="form-group">
     <label for="exampleFormControlSelect1">Users</label>
     <select name="user_id" class="form-control ">
           
-          <option value="{{ $order->user ? $order->user->id : 'not exist'}}">{{ $order->user ? $order->user->name : 'not exist'}}</option>
+          <option value="{{ $order->user ? $order->user->id : 0}}">{{ $order->user ? $order->user->name : 'not exist'}}</option>
     
         </select>
   </div>

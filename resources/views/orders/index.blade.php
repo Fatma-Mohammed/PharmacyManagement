@@ -35,6 +35,7 @@
       <th scope="col">creator_type</th>
       <th scope="col">status</th>
       <th scope="col">assigned_pharmacy</th>
+
       
       <th colspan="3" scope="col-3">actions</th>
     </tr>
@@ -44,22 +45,22 @@
     <tr>
       
       
-      <td>{{$order->id}}</td>
-      <td>{{$order->created_at}}</td>
+      <td>{{$order?$order->id:""}}</td>
+      <td>{{$order?$order->created_at:""}}</td>
       <td>{{ $order->user ? $order->user->name : 'not exist'}}</td>
-      <td>{{$order->doctor_id}}</td>
-      <td>{{$order->is_isured}}</td>
-      <td>{{$order->creator_type}}</td>
-      <td>{{$order->status}}</td>
-      <td>{{$order->pharmacy_id}}</td>
+      <td>{{ $order->doctor ? $order->doctor->name : 'not exist'}}</td>
+      <td>{{$order?$order->is_isured:""}}</td>
+      <td>{{$order?$order->creator_type:""}}</td>
+      <td>{{$order?$order->status:""}}</td>
+      <td>{{$order?$order->pharmacy_id:""}}</td>
       
       <td><a href="{{route('orders.show',['order'=> $order->id,'user'=> $order->user ? $order->user->id : 'not exist'])}}" class="btn btn-primary">view</a></td>
       <td><a data-toggle="modal" data-target="#myModal" class="btn btn-warning">delete</a></td>
       <td><a href="{{route('orders.edit',['order'=> $order->id])}}" class="btn btn-secondary">update</a></td>
-      
-   @endforeach
+     
+      @endforeach
     </tr>
-
+    
 <div id="myModal" class="modal fade" role="dialog">
   <div class="modal-dialog">
 
@@ -73,12 +74,13 @@
         <p>Some text in the modal.</p>
       </div>
       <div class="modal-footer">
-      <a href="{{route('orders.destroy',['order'=> $order])}}" class="btn btn-warning">yes</a>
+      
+      <a href="{{route('orders.destroy',['order'=> $order->id])}}" class="btn btn-warning">yes</a>
       <a href="{{route('orders.index')}}" class="btn btn-warning">no</a>
-        
+       
       </div>
     </div>
-
+   
   </div>
 </div>
    

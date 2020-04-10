@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddPriceColToOrderTable extends Migration
+class CreateMedicinePharmacyTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,10 @@ class AddPriceColToOrderTable extends Migration
      */
     public function up()
     {
-        Schema::table('orders', function (Blueprint $table) {
-            //
-           
+        Schema::create('medicine_pharmacy', function (Blueprint $table) {
+            $table->integer('medicine_id')->unsigned();
+            $table->integer('pharmacy_id')->unsigned();
+            $table->timestamps();
         });
     }
 
@@ -26,8 +27,6 @@ class AddPriceColToOrderTable extends Migration
      */
     public function down()
     {
-        Schema::table('order', function (Blueprint $table) {
-            //
-        });
+        Schema::dropIfExists('medicine_pharmacy');
     }
 }

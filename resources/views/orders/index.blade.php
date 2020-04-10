@@ -71,12 +71,38 @@
       <td>{{$order?$order->pharmacy_id:""}}</td>
       
       <td><a href="{{route('orders.show',['order'=> $order->id,'user'=> $order->user ? $order->user->id : 'not exist'])}}" class="btn btn-primary">view</a></td>
-      <td><a data-toggle="modal" data-target="#myModal" class="btn btn-warning">delete</a></td>
       <td><a href="{{route('orders.edit',['order'=> $order->id])}}" class="btn btn-secondary">update</a></td>
-     
+      <!-- <td><a data-toggle="modal" data-target="#myModal" class="btn btn-warning">delete</a></td> -->
+      <td><a class="btn btn-danger" href="#" role="button" data-toggle="modal" data-target="#delete-modal-{{$order->id}}">Delete</a></td>
+      <div class="modal fade" id="delete-modal-{{$order->id}}" tobindex="-1" role="dialog" aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                    <form method="POST"  action="{{route('orders.destroy',$order->id)}}">
+                      @csrf
+                      @method('DELETE')
+                      <div class="modal-header">
+                        <h5 class="modal-title">Delete order #{{$order->id}}</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-body">
+                        Click delete to delete the order!
+                        
+                      </div>
+                      <div class="modal-body">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-danger">Delete</button>
+
+                      </div>
+
+                    </form>
+                    </div>
+                  </div>
+              </div>
       @endforeach
     </tr>
-    
+
 <div id="myModal" class="modal fade" role="dialog">
   <div class="modal-dialog">
 

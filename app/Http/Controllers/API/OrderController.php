@@ -10,6 +10,8 @@ use App\Address;
 use App\Http\Resources\OrderResource;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\ApiStoreOrderRequest;
+use App\Http\Requests\ApiUpdateOrderRequest;
+
 use Illuminate\Database\Eloquent\Builder;
 class OrderController extends Controller
 {
@@ -45,6 +47,38 @@ class OrderController extends Controller
             $order->prescriptions = $request->file('prescriptions');
 
         return ["success"=>"your order was made"];
+    }
+
+    public function update(ApiUpdateOrderRequest $request, $id)
+    {
+        
+        $order = Order::find($id);
+        if(!$order)
+            return ["error"=>"resource not found"];
+
+        if($order->status!="New")
+            return ["error"=>"can't update that order as it's not in new status"];
+        
+                
+        if($request->hasFile('prescriptions'))
+            $order->prescriptions = $request->file('prescriptions'); 
+    
+        if($request->has('cancel'))
+            if($request->cancel==1){
+                $order->status_id=3;
+                $order->save();
+            }
+
+
+        $order->status = "New";
+        $order->created_at = $request->created_at;
+        $order->pharmacy_id = $order->pharmacy_id;
+        $order->total_price = $request->total_price;
+
+        $order->save();
+              
+        
+        return ["success"=>"your order has been updated sucessfully"];
     }
 
 }

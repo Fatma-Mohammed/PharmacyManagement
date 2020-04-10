@@ -44,38 +44,32 @@ class UserAddressController extends Controller
        
     }
 
-    // public function update()
-    // {
-    //     $request = request();
-    
-    //     $useraddress = UserAddress::find($request->useraddress);
-    //     $useraddress->area_id = $request->area_id;
-    //     $useraddress->street_name = $request->street_name;
-    //     $useraddress->building_number = $request->building_number;
-    //     $useraddress->floor_number = $request->floor_number;
-    //     $useraddress->falt_number = $request->falt_number;
-    //     $useraddress->is_main = $request->is_main;
+    public function update(Request $request)
+    {
 
-    //     $useraddress->save();
-    //     return $useraddress;
+        $useraddress = Address::find($request->useraddress);
+        $useraddress->area_id = $request->area_id;
+        $useraddress->street_name = $request->street_name;
+        $useraddress->building_number = $request->building_number;
+        $useraddress->floor_number = $request->floor_number;
+        $useraddress->flat_number = $request->flat_number;
+        $useraddress->is_main = $request->is_main;
 
-    // }
+        $useraddress->save();
+        return $useraddress;
 
+    }
 
 
-    // public function destroy()
-    // {
-    //     $request = request();
-    //     $addressId = $request->useraddress;
 
-    //     // $post = Post::find($postId);
+    public function destroy(Request $request)
+    {
+        $addressId = $request->useraddress;
+        Address::destroy($addressId);
 
-    //     // $post->delete();
-    //     UserAddress::destroy($addressId);
+        return  Address::all();
 
-    //     return  UserAddress::all();
-
-    // }
+    }
 
 
 }

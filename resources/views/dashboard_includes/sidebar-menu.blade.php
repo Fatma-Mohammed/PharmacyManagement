@@ -12,7 +12,7 @@
         <!-- menu profile quick info -->
         <div class="profile clearfix">
             <div class="profile_pic">
-                <img src="assets/images/avatar_emad.jpg" alt="..." class="img-circle profile_img">
+                <img src="/assets/images/avatar_emad.jpg" alt="..." class="img-circle profile_img">
             </div>
             <div class="profile_info">
                 <span>Welcome,</span>
@@ -39,8 +39,8 @@
 
                     <li><a><i class="fa fa-edit"></i> Pharmacies <span class="fa fa-chevron-down"></span></a>
                         <ul class="nav child_menu">
-                            <li><a href="#">Sub Menu 1</a></li>
-                            <li><a href="#">Sub Menu 2</a></li>
+                            <li><a href="{{ route('pharmacies.index') }}"> Show All </a></li>
+                            <li><a href="{{ route('pharmacies.create') }}"> Create Pharmacies </a></li>
                         </ul>
                     </li>
 

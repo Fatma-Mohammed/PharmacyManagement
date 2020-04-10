@@ -49,10 +49,10 @@ class OrderController extends Controller
         return ["success"=>"your order was made"];
     }
 
-    public function update(ApiUpdateOrderRequest $request, $id)
+    public function update(ApiUpdateOrderRequest $request)
     {
         
-        $order = Order::find($id);
+        $order = Order::find($request->id);
         if(!$order)
             return ["error"=>"resource not found"];
 

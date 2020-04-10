@@ -18,7 +18,12 @@ class Pharmacy extends Authenticatable
         'area_id',
     ];
 
-    protected $hidden = ["password"];
+    protected $hidden = ["password", "deleted_at"];
+
+    public function doctors()
+    {
+        return $this->hasMany('App\Doctor');
+    }
 
     public function area()
     {

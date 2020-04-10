@@ -1,4 +1,3 @@
-
 @extends('dashboard-main')
 
 @section('addional_css_includes')
@@ -39,27 +38,7 @@
                     </div>
                     <div class="x_content">
                         <section>
-                        <div class="card" style="width: 18rem;">
-        <div class="card-body">
-        <h5 class="card-title">"user_name:"{{ $order->user ? $order->user->name : 'not exist'}}</h5>
-          <p class="card-text">{{$order->doctor_id}}</p>
-          <p class="card-text">{{$order->is_isured}}</p>
-          <p class="card-text">{{$order->creator_type}}</p>
-          <p class="card-text">{{$order->status}}</p>
-          <p class="card-text">{{$order->pharmacy_id}}</p>
-          @foreach($order->medicines as $medicine)
-            <p class="card-text">{{$medicine->name}}</p>
-            <p class="card-text">{{$medicine->price}}</p>
-          @endforeach
-        
-        </div>
-      </div>
-
-      <div class="card" style="width: 18rem;">
-        <div class="card-body">
-        
-        </div>
-      </div>
+                            <h1>Edit existing pharmacy</h1>
                         </section>
                     </div>
                 </div>
@@ -73,6 +52,3 @@
 @section('addional_js_includes')
 
 @endsection
-
-
-  

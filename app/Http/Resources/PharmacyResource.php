@@ -6,19 +6,19 @@ use Illuminate\Http\Resources\Json\JsonResource;
 
 class PharmacyResource extends JsonResource
 {
-    /**
-     * Transform the resource into an array.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return array
-     */
     public function toArray($request)
     {
         return [
-            'id'=>$this->id,
-            'name'=>$this->name,
-            'address'=>$this->address,
-            'avatar_img'=>$this->avatar_img, 
+            "id" => $this->id,
+            "name" => $this->name,
+            "email" => $this->email,
+            "national_id" => $this->national_id,
+            "avatar_image" => $this->avatar_image,
+            "priority" => $this->priority,
+            "area_id" => $this->area_id,
+            "deleted_at" => $this->deleted_at,
+            "created_at" => $this->created_at,
+            "updated_at" => $this->updated_at,
         ];
     }
 }

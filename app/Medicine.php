@@ -13,10 +13,17 @@ class Medicine extends Model
 
 
     public function order()
-        {
-        return $this->belongsToMany('App\Order');
-        }
 
+    {
+
+        return $this->belongsToMany(Order::class, 'order_medicine');
+
+    }
+    public function pharmacies()
+    { 
+
+        return $this->belongsToMany(Pharmacy::class,'medicine_pharmacies')->withTimestamps();
+    }
 
 
 

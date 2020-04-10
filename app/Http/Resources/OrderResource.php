@@ -18,7 +18,7 @@ class OrderResource extends JsonResource
             'id'=>$this->id,
             'ordered_at'=>$this->created_at,
             'status'=>$this->status,
-            'assigned_pharmacy'=>new PharmacyResource($this->pharmacy),
+            'pharmacy_id'=>new PharmacyResource($this->pharmacy),
             'medicines'=>MidicineResource::Collection($this->complete_medicines) ,
             'total_price'=>$this->total_price,
         ];

@@ -3,7 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-
+use App\Pharmacy;
 class Order extends Model
 {
     //
@@ -13,13 +13,22 @@ class Order extends Model
         'is_isured',
         'creator_type',
         'status',
-        'assigned_pharmacy',
+        'pharmacy_id',
         'delivering_address_id',
         
     ];
+    static public $statuses =[
+        'New',
+        'Processing',
+        'WaitingForUserConfirmation',
+        'Canceled',
+        'Confirmed',
+        'Delivered'
+
+    ];
     public function user()
     {
-        return $this->belongsTo('App\User','order_user_id');
+        return $this->belongsTo('App\User','user_id');
     }
     public function medicines()
     {
@@ -49,7 +58,7 @@ class Order extends Model
 
     public function getPharmacyAttribute()
     {
-        $pharmacy= Pharmacy::find($this->pharamcy_id);   
+        $pharmacy= Pharmacy::find($this->pharmacy_id);
         $pharmacy['address']=$pharmacy->area->name.", ".$pharmacy->area->address;
         return $pharmacy;
     }

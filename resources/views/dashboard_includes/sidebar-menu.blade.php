@@ -83,8 +83,8 @@
 
                     <li><a><i class="fa fa-clone"></i> Orders <span class="fa fa-chevron-down"></span></a>
                         <ul class="nav child_menu">
-                            <li><a href="#">Sub Menu 1</a></li>
-                            <li><a href="#">Sub Menu 2</a></li>
+                            <li><a href="{{route('orders.index')}}">orders</a></li>
+                            <li><a href="{{route('orders.create')}}">create_order </a></li>
                         </ul>
                     </li>
 

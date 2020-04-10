@@ -61,7 +61,7 @@ class OrderController extends Controller
         $request = request();
        
         $orderId = $request->order;
-        dd($orderId);
+        // dd($orderId);
         Order::destroy($orderId);
       
         return redirect()->route('orders.index');

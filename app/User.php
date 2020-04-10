@@ -26,7 +26,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'avatar_img',
         'mobile_number',
         'national_id',
-        'last_login_date'
+        // 'last_login_date'
     ];
 
     /**
@@ -44,6 +44,7 @@ class User extends Authenticatable implements MustVerifyEmail
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'last_login_date'   => 'datetime',
     ];
 
     public function addresses()

@@ -40,9 +40,11 @@ class not_logged_for_month extends Notification
      */
     public function toMail($notifiable)
     {
+
         return (new MailMessage)
-                    ->line('The introduction to the notification.')
-                    ->action('Notification Action', url('/'))
+                    ->line('We miss you')
+                    ->line("you haven't logged in for a while , is every thing okay?")
+                    ->action('go to Pharmacy Management', url('/home'))
                     ->line('Thank you for using our application!');
     }
 

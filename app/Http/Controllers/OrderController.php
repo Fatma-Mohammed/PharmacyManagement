@@ -16,23 +16,29 @@ class OrderController extends Controller
     //
     public function index(){
         $order = Order::find(1);
-
+       
+       
+        
         //$medicine=$order->medicine;	
         //dd($order->medicine[0]->name);
-     
-
         
-
-    
         $orders=Order::all();
+       
         return view('orders/index',[
-            'orders'=>$orders
+            'orders'=>$orders,
+            
         ]);
     }
     public function show(){
         $request = request();
+        
         $orderId = $request->order;
-
+        $total=0;
+        
+        $ords=medicine_orders::where('order_id',$orderId)->get();
+        
+        //  $price = medicine_orders::select('price')->where('order_id', $orderId)->get();
+        //   dd($price);
         $userId=$request->user;
         // $medicineId=$request->medicine;
 
@@ -45,6 +51,8 @@ class OrderController extends Controller
         return view('orders/show',[
             'order'=>$order,
              'user'=>$user,
+             'ords'=>$ords,
+             'total'=>$total
             //  'medicine'=>$medicine
         ]);
 
@@ -81,10 +89,6 @@ class OrderController extends Controller
     }
     public function store(){
         $request=request();
-    
-
-       
-       
         $area = Address::find($request->deliviring_address )->area->id;
         $priority = Pharmacy::where('area_id',$area)->max('priority');
         $pharmacy = Pharmacy::where('priority',$priority)->first();

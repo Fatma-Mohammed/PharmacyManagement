@@ -115,9 +115,31 @@
                 {data: "created_at", name: "created_at"},
                 {data: "updated_at", name: "updated_at"},
                 {
+                    data: "id",
+                    name: "id",
                     orderable: false,
                     render: function (data) {
-                        return '<div class="btn-group">\n                            <button\n                                onclick=""\n                                type="button" class="btn btn-info btn-xs"><i class="fa fa-eye"></i> View\n                            </button>\n                            <button type="button" class="btn btn-info btn-xs dropdown-toggle" data-toggle="dropdown"\n                                    aria-expanded="false"><span class="caret"></span> <span class="sr-only">Toggle Dropdown</span>\n                            </button>\n                            <ul class="dropdown-menu pull-right" role="menu">\n                                <li><a onclick=""><i class="fa fa-refresh"></i> Update </a></li>\n                                <li><a onclick=""><i class="fa fa-eye"></i> Ban </a></li>\n                                <li><a onclick=""><i class="fa fa-pencil"></i>Edit </a></li>\n                                <li class="divider"></li>\n                                <li><a onclick=""><i class="fa fa-trash-o"></i> Delete</a></li>\n                            </ul>\n                        </div>'
+
+                        let route = "{{ route('pharmacies.show', 1) }}";
+
+                        let showBtn = document.createElement('a');
+                        let editBtn = document.createElement('a');
+                        let deleteBtn = document.createElement('button');
+
+                        showBtn.innerText = "Show";
+                        editBtn.innerText = "Edit";
+                        deleteBtn.innerText = "Delete";
+
+                        showBtn.classList.add("btn", "btn-sm", "btn-success");
+                        editBtn.classList.add("btn", "btn-sm", "btn-info");
+                        deleteBtn.classList.add("btn", "btn-sm", "btn-danger", "clickable");
+
+                        deleteBtn.setAttribute("data-id", data);
+
+                        editBtn.href = "{{route('pharmacies.index')}}" + "/" + data + "/edit";
+                        showBtn.href = "{{route('pharmacies.index')}}" + "/" + data;
+
+                        return showBtn.outerHTML + editBtn.outerHTML + deleteBtn.outerHTML;
                     }
                 }
             ],
@@ -128,9 +150,33 @@
         }); // end datatable
 
 
-        function f() {
+        function notify(ev) {
+            if (!confirm("Are you sure you want to delete this pharmacy?")) return
 
+            let id = this.getAttribute("data-id");
+
+            $.ajax({
+                url: "{{route('pharmacies.index')}}" + "/" + id + "/delete",
+                type: 'DELETE',
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+
+                success: function (data) {
+                    if (data.errors) {
+                        alert("Can't delete");
+                    } else {
+                        setTimeout(function () {
+                            $('#datatable').DataTable().ajax.reload();
+                        }, 2000);
+                    }
+
+                }
+            })
         }
+
+
+        $("#datatable").on('click', '.clickable', notify);
 
     </script>
 

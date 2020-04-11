@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class StorePharmacyRequest extends FormRequest
 {
@@ -25,12 +26,12 @@ class StorePharmacyRequest extends FormRequest
     {
         return [
             "name" => "required",
-            "email" => "required|email|unique:pharmacies",
-            "password" => "required|min:6",
-            "avatar" => "image|max:1999|mimes:jpeg,jpg,png",
+            "email" => ["required", "email", Rule::unique("pharmacies")->ignore($this->pharmacy)],
+            "password" => "required_without:id", /*min:6*/
+            "avatar" => "image|max:1999|mimes:jpeg,jpg,png|sometimes",
             "priority" => "required",
             "area_id" => "required",
-            "national_id" => "required|min:14|max:14|unique:pharmacies",
+            "national_id" => ["required", "min:14", "max:14", Rule::unique("pharmacies")->ignore($this->pharmacy)],
 //            todo : validate area_id and make sure that it belongs to real registered Area
         ];
     }

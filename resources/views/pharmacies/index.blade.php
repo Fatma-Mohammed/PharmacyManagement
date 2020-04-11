@@ -156,7 +156,7 @@
             let id = this.getAttribute("data-id");
 
             $.ajax({
-                url: "{{route('pharmacies.index')}}" + "/" + id + "/delete",
+                url: "{{route('pharmacies.index')}}" + "/" + id,
                 type: 'DELETE',
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')

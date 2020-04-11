@@ -74,11 +74,11 @@
                         </ul>
                     </li>
 
-                    <li><a><i class="fa fa-clone"></i> Medicines <span class="fa fa-chevron-down"></span></a>
-                        <ul class="nav child_menu">
+                    <li> <a href= "{{ route('medicine.index') }}" > <i class="fa fa-clone"></i> Medicines <span class="fa fa-chevron-down"></span> </a>
+                        <!-- <ul class="nav child_menu">
                             <li><a href="#">Sub Menu 1</a></li>
                             <li><a href="#">Sub Menu 2</a></li>
-                        </ul>
+                        </ul> -->
                     </li>
 
                     <li><a><i class="fa fa-clone"></i> Orders <span class="fa fa-chevron-down"></span></a>

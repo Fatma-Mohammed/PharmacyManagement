@@ -41,17 +41,31 @@
                         <section>
                         <div class="card" style="width: 18rem;">
         <div class="card-body">
-        <h5 class="card-title">"user_name:"{{ $order->user ? $order->user->name : 'not exist'}}</h5>
-          <p class="card-text">{{$order->doctor_id}}</p>
-          <p class="card-text">{{$order->is_isured}}</p>
-          <p class="card-text">{{$order->creator_type}}</p>
-          <p class="card-text">{{$order->status}}</p>
-          <p class="card-text">{{$order->pharmacy_id}}</p>
-          @foreach($order->medicines as $medicine)
-            <p class="card-text">{{$medicine->name}}</p>
-            <p class="card-text">{{$medicine->price}}</p>
-          @endforeach
         
+        <h5 class="card-title">"user_name:"{{ $order->user ? $order->user->name : 'not exist'}}</h5>
+          <p class="card-text">"doctor:"{{$order->doctor?$order->doctor->name:"not_exist"}}</p>
+          <p class="card-text">"is_ensured:{{$order->is_isured}}</p>
+          <p class="card-text">"creator_type:"{{$order->creator_type}}</p>
+          <p class="card-text">"status:"{{$order->status}}</p>
+          <p class="card-text">"assigned_pharmacy:"{{$order->pharmacy?$order->pharmacy->name:"not_exist"}}</p>
+          
+          @foreach($order->medicines as $medicine)
+          <p class="card-text">"mesicine_name:"{{$medicine->name}}</p>
+          <p class="card-text">"medicine_price:"{{$medicine->price}}</p>
+          @foreach($ords as $ord)
+          
+          
+            <p class="card-text">quantity_of_medicine:{{$ord->quantity}}</p>
+            <p class="card-text">price_of_this_quantity:{{$ord->price}}</p>
+            <p class="card-text" hidden>{{$total+=$ord->price}}</p>
+           @break
+            
+            
+           
+            
+            @endforeach
+          @endforeach
+            <p> "total_price:"{{$total}}</p>
         </div>
       </div>
 

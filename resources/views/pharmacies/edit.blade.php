@@ -7,6 +7,7 @@
 @section('content')
 
     <div class="">
+        {{--        TODO : bradcrumbs--}}
         <div class="page-title">
             <div class="title_left">
                 <h3>Test Page</h3>
@@ -19,7 +20,7 @@
             <div class="col-md-12">
                 <div class="x_panel">
                     <div class="x_title">
-                        <h2>Title of panel goes here</h2>
+                        <h2>Edit Pharmacy</h2>
                         <ul class="nav navbar-right panel_toolbox">
                             <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                             </li>
@@ -38,7 +39,122 @@
                     </div>
                     <div class="x_content">
                         <section>
-                            <h1>Edit existing pharmacy</h1>
+                            {{--                            @dump($pharmacy)--}}
+                            @if ($errors->any())
+                                <div class="alert alert-danger">
+                                    <ul>
+                                        @foreach ($errors->all() as $error)
+                                            <li>{{ $error }}</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            @endif
+
+
+                            <form class="form-horizontal form-label-left" novalidate method="post"
+                                  action="{{route('pharmacies.update', $pharmacy->id)}}" enctype="multipart/form-data">
+                                @csrf
+                                {{ method_field('PUT') }}
+                                <input type="hidden" name="id" value="{{ $pharmacy->id }}">
+
+                                <div class="item form-group">
+                                    <label class="col-form-label col-md-3 col-sm-3 label-align" for="name">Name
+                                        <span
+                                            class="required">*</span>
+                                    </label>
+                                    <div class="col-md-6 col-sm-6">
+                                        <input id="name" class="form-control" data-validate-length-range="6"
+                                               data-validate-words="1" name="name" value="{{ $pharmacy->name }}"
+                                               placeholder="Name of the Pharmacy" required="required" type="text">
+                                    </div>
+                                </div>
+
+                                <div class="item form-group">
+                                    <label class="col-form-label col-md-3 col-sm-3 label-align" for="email">Email
+                                        <span
+                                            class="required">*</span>
+                                    </label>
+                                    <div class="col-md-6 col-sm-6">
+                                        <input type="email" id="email" name="email" required="required"
+                                               value="{{ $pharmacy->email }}"
+                                               class="form-control">
+                                    </div>
+                                </div>
+
+                                <div class="item form-group">
+                                    <label for="password"
+                                           class="col-form-label col-md-3 label-align">Password</label>
+                                    <div class="col-md-6 col-sm-6">
+                                        <input id="password" type="password" name="password"
+                                               data-validate-length="5,8"
+                                               class="form-control">
+                                    </div>
+                                </div>
+
+                                <div class="item form-group">
+                                    <label for="password2" class="col-form-label col-md-3 col-sm-3 label-align ">Repeat
+                                        Password</label>
+                                    <div class="col-md-6 col-sm-6">
+                                        <input id="password2" type="password" name="password2"
+                                               data-validate-linked="password" class="form-control">
+                                    </div>
+                                </div>
+
+                                <div class="item form-group">
+                                    <label class="col-form-label col-md-3 col-sm-3 label-align" for="occupation">National
+                                        ID
+                                        <span class="required">*</span>
+                                    </label>
+                                    <div class="col-md-6 col-sm-6">
+                                        <input type="text" name="national_id" value="{{ $pharmacy->national_id }}"
+                                               class="optional form-control">
+                                    </div>
+                                </div>
+
+                                <div class="item form-group">
+                                    <label class="col-form-label col-md-3 col-sm-3 label-align" for="number">Priority
+                                        <span class="required">*</span>
+                                    </label>
+                                    <div class="col-md-6 col-sm-6">
+                                        <input type="number" id="number" name="priority" required="required"
+                                               value="{{ $pharmacy->priority }}"
+                                               data-validate-minmax="10,100" class="form-control">
+                                    </div>
+                                </div>
+
+
+                                <div class="item form-group">
+                                    <label class="col-form-label col-md-3 col-sm-3 label-align" for="telephone">Area
+                                        ID
+                                        <span class="required">*</span>
+                                    </label>
+                                    <div class="col-md-6 col-sm-6">
+                                        <input name="area_id" required="required" value="{{ $pharmacy->area_id }}"
+                                               class="form-control">
+                                    </div>
+                                </div>
+
+                                <div class="item form-group">
+                                    <label class="col-form-label col-md-3 col-sm-3 label-align" for="textarea">Avatar
+                                    </label>
+                                    <div class="col-md-6 col-sm-6">
+                                        <img src="/storage/{{ $pharmacy->avatar_image }}" width="50" height="50"
+                                             id="avatar_img">
+                                        <input class="form-control" name="avatar" type="file" id="imgInp">
+                                    </div>
+                                </div>
+
+                                <div class="ln_solid"></div>
+                                <div class="form-group">
+                                    <div class="col-md-6 offset-md-3">
+                                        <a href="{{ route('pharmacies.index') }}" class="btn btn-primary">Cancel</a>
+                                        <button id="send" type="submit" class="btn btn-success">Submit</button>
+                                    </div>
+                                </div>
+
+                            </form>
+
+
                         </section>
                     </div>
                 </div>
@@ -50,5 +166,30 @@
 
 
 @section('addional_js_includes')
+    <!-- FastClick -->
+    <script src="/assets/js/fastclick.js"></script>
+    <!-- NProgress -->
+    <script src="/assets/js/nprogress.js"></script>
+    <!-- validator -->
+    <script src="/assets/js/validator.js"></script>
 
+    <script>
+        // preview selected image in input type=“file”
+
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $('#avatar_img').attr('src', e.target.result);
+                }
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        $("#imgInp").change(function () {
+            readURL(this);
+        });
+    </script>
 @endsection

@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StorePharmacyRequest;
 use App\Pharmacy;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 use Yajra\DataTables\Facades\DataTables;
 
 
@@ -50,7 +50,7 @@ class PharmacyController extends Controller
             $filenameToStore = 'default_avatar.jpg';
         }
 
-        Pharmacy::create([
+        $pharmacy = Pharmacy::create([
             "name" => $request->name,
             "email" => $request->email,
             "password" => Hash::make($request->password),
@@ -59,6 +59,7 @@ class PharmacyController extends Controller
             "priority" => $request->priority,
             "area_id" => $request->area_id,
         ]);
+
 
         return redirect()->route('pharmacies.index')->with('result', "success");
 
@@ -72,13 +73,51 @@ class PharmacyController extends Controller
 
     public function edit($id)
     {
-        return view('pharmacies.show', ["pharmacy" => Pharmacy::find($id)]);
+        return view('pharmacies.edit', ["pharmacy" => Pharmacy::find($id)]);
     }
 
-    public function update(Request $request, $id)
+    public function update(StorePharmacyRequest $request, $id)
     {
-        //$post = Post::find(1);
-        //$post->update([]);
+
+        $pharmacy = Pharmacy::find($id);
+        $imgIsPresent = false;
+        if ($request->hasFile('avatar')) {
+
+            $imgIsPresent = true;
+
+            // delete the old image
+            Storage::delete($pharmacy->avatar_image);
+            // save the new image
+            $filenameWithExt = $request->file('avatar')->getClientOriginalName(); // get filename with extension
+            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME); // Get just file name
+            $extnsion = $request->file('avatar')->getClientOriginalExtension(); // Get just the extension
+            if (in_array(strtolower($extnsion), ['jpeg', 'jpg', 'png'])) { // not needed, already checked in Request
+                $filenameToStore = $filename . '_' . time() . '.' . $extnsion; // file to store
+                $path = $request->file('avatar')->storeAs('public', $filenameToStore); //upload img
+            } else {
+                $filenameToStore = 'default_avatar.jpg';
+            }
+        }
+
+        $colsToUpdate = [
+            'name' => $request->name,
+            'email' => $request->email,
+            'national_id' => $request->national_id,
+            'priority' => $request->priority,
+            'area_id' => $request->area_id
+        ];
+
+        if ($request->password)
+            $colsToUpdate['password'] = $request->password;
+
+        if($imgIsPresent)
+            $colsToUpdate['avatar_image'] = $filenameToStore;
+
+        $pharmacy->update($colsToUpdate);
+
+        return redirect()->route('pharmacies.index')
+            ->with("results", ["edit" => "success", "name" => $pharmacy->name]);
+
     }
 
     public function destroy($id)
